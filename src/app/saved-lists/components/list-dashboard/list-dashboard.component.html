@@ -1,0 +1,106 @@
+<div
+  fxFlexFill
+  fxLayout="column"
+  fxLayoutGap="16px"
+  fxLayoutAlign="center start"
+>
+  <list-header
+    class="max-width"
+    fxLayout="row"
+    [searchFormControl]="searchKeyword"
+  ></list-header>
+
+  <mat-drawer-container fxFlex="90" autosize class="max-width">
+    <mat-list *ngIf="listItems$ | async as items">
+      <mat-list-item>
+        <div
+          fxFlex="grow"
+          fxLayout="row"
+          fxLayoutAlign="start center"
+          fxLayoutGap="32px"
+          class="grey"
+        >
+          <p fxFlex="5" fxLayoutAlign="center center">Date</p>
+
+          <p matTooltip="Name" fxFlex="grow">Name</p>
+
+          <p fxFlex="10" fxLayoutAlign="end center">No. of Entries</p>
+
+          <p fxFlex="15" fxLayoutAlign="center center">Actions</p>
+
+          <p fxFlex="5"></p>
+        </div>
+      </mat-list-item>
+      <mat-list-item *ngFor="let item of items">
+        <ng-container *ngTemplateOutlet="itemTemplate; context: { item: item }">
+        </ng-container>
+      </mat-list-item>
+    </mat-list>
+
+    <mat-drawer #detailsDrawer mode="side" position="end" class="padding">
+      <p class="grey">
+        {{
+          selectedItem?.description
+            ? selectedItem.description
+            : "No description yet"
+        }}
+
+        <button *ngIf="!selectedItem?.description" mat-button color="primary">
+          + Add Description
+        </button>
+      </p>
+
+      <mat-list *ngIf="selectedItem?.entities.length">
+        <mat-list-item *ngFor="let entity of selectedItem.entities">
+          <p class="primary-color">
+            {{ entity }}
+          </p></mat-list-item
+        >
+      </mat-list>
+    </mat-drawer>
+  </mat-drawer-container>
+</div>
+
+<ng-template #itemTemplate let-item="item">
+  <div
+    fxFlex="grow"
+    fxLayout="row"
+    fxLayoutAlign="start center"
+    fxLayoutGap="32px"
+    (mouseover)="changeFocus(item)"
+  >
+    <span
+      matTooltip="Date"
+      fxFlex="5"
+      fxLayoutAlign="center center"
+      class="light-grey"
+    >
+      {{ item.date }}
+    </span>
+
+    <span matTooltip="Name" fxFlex="grow">
+      <b>
+        {{ item.name }}
+      </b>
+    </span>
+
+    <span matTooltip="No. of Entries" fxFlex="10" fxLayoutAlign="end center">
+      {{ item.entities.length }}
+    </span>
+
+    <div
+      fxFlex="15"
+      fxLayoutAlign="space-around center"
+      [ngClass]="{ 'light-grey': focusedItem?.id != item.id }"
+    >
+      <mat-icon class="material-icons-outlined">mail</mat-icon>
+      <mat-icon class="material-icons-outlined">share</mat-icon>
+      <mat-icon class="material-icons-outlined">edit</mat-icon>
+      <mat-icon class="material-icons-outlined">delete</mat-icon>
+    </div>
+
+    <button mat-button color="primary" (click)="openDetails(item)" fxFlex="5">
+      Details
+    </button>
+  </div>
+</ng-template>

@@ -1,0 +1,27 @@
+<div
+  fxFlexFill
+  fxLayout="row"
+  fxLayoutAlign="space-between center"
+  fxLayoutGap="16px"
+>
+  <div fxLayoutGap="8px">
+    <button mat-raised-button color="primary">
+      <mat-icon matPrefix>view_list</mat-icon>
+      Saved Lists
+    </button>
+    <button mat-stroked-button>
+      <mat-icon class="material-icons-outlined" matPrefix>filter_alt</mat-icon>
+      Saved Filters
+    </button>
+    <button mat-stroked-button>
+      <mat-icon class="material-icons-outlined" matPrefix>history</mat-icon>
+
+      Search History
+    </button>
+  </div>
+
+  <mat-form-field appearance="outline" fxFlex="50">
+    <mat-label>Search</mat-label>
+    <input [formControl]="searchFormControl" matInput placeholder="Search" />
+  </mat-form-field>
+</div>

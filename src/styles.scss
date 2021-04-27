@@ -1,1 +1,26 @@
 /* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.max-width {
+  width: 100% !important;
+}
+
+.max-height {
+  height: 100% !important;
+}
+
+.padding {
+  padding: 16px !important;
+}
+
+.primary-color {
+  color: #3f51b5 !important;
+}
